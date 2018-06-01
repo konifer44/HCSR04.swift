@@ -88,20 +88,20 @@ More about: [Swift Error Handling](https://developer.apple.com/library/content/d
 
 ```
 do {
-let distance = try sensor.measureDistance()
-print(distance)
+  let distance = try sensor.measureDistance()
+  print(distance)
 } catch {
-print("Unexpected error: \(error)")   
+  print("Unexpected error: \(error)")   
 }
 ```
 ### Multiple samples  distnace measurment:
 You can start **multiple sample measurment** which return average distance by calling method with optional argument ``` measureDistance(numberOfSamples: Int? = nil)``` </br>Depending on producer suggest to use over 60ms measurement cycle ``` measureDistance(numberOfSamples: Int? = nil)``` method takes first sample immediately after calling it but **every next sample is taken after 60ms.** </br>In below example as You expected time of 5 sample measurment will take around 240ms and return average distance.
 ```
 do {
-let distance = try sensor.measureDistance(numberOfSamples: 5)
-print(distance)
+  let distance = try sensor.measureDistance(numberOfSamples: 5)
+  print(distance)
 } catch {
-print("Error: \(error)")   
+  print("Error: \(error)")   
 }
 ```
 
@@ -119,10 +119,10 @@ Default value of timeout depends on your maximum sensor range, it's twice longer
 
 ```
 do {
-let distance = try sensor.measureDistance(providedTimeout: 40)
-print(distance)
+  let distance = try sensor.measureDistance(providedTimeout: 40)
+  print(distance)
 } catch {
-print("Error: \(error)")   
+  print("Error: \(error)")   
 }
 ```
 Remember that if You provide timeout shorter than maximum echo signal it will interrupt measurment and throw error.
@@ -130,14 +130,14 @@ Remember that if You provide timeout shorter than maximum echo signal it will in
 If You need handle error separately, You can access enum ```ErrorList``` insde of class ```HCSR04```
 ```
 do {
-let distance = try sensor.measureDistance()
-print(distance)
+  let distance = try sensor.measureDistance()
+  print(distance)
 } catch HCSR04.ErrorList.echoSignalError {
-//user error handling procedure
+  //user error handling procedure
 }catch HCSR04.ErrorList.measuredDistanceIsOutSensorRange {
-//user error handling procedure
+  //user error handling procedure
 }catch HCSR04.ErrorList.userTimeout {
-//user error handling procedure
+  //user error handling procedure
 }
 
 ```
