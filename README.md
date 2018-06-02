@@ -83,7 +83,7 @@ var sensor = HCSR04.init(usedRaspberry: .RaspberryPiPlusZero, echoConnectedPin: 
 ```
 ### Single sample  distnace measurment:
 You can start **singe sample measurment** by calling method with no arguments ``` measureDistance()```  Because the ``` measureDistance()``` method propagates any errors it throws, any code that calls this method must either handle the errors—using a do-catch statement, try?, or try!. Also You need to remember that producer of ultrasonic sensor suggest to use over 60ms measurement cycle, in order to prevent trigger signal to the echo signal. 
-``` measureDistance()``` in this case method takes sample immediately after calling it.</br> </br>
+``` measureDistance()``` in sigle sample measurment, takes sample immediately after calling it.</br> </br>
 More about: [Swift Error Handling](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/ErrorHandling.html)
 
 ```
