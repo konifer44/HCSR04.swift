@@ -82,8 +82,8 @@ Next step is initialization. Sensor is initialized by creating instance of class
 var sensor = HCSR04.init(usedRaspberry: .RaspberryPiPlusZero, echoConnectedPin: .P21, triggerConnectedPin: .P20, maximumSensorRange: 400)
 ```
 ### Single sample  distnace measurment:
-You can start **single sample measurment** by calling method with no arguments ``` measureDistance()```  Because the ``` measureDistance()``` method propagates any errors it throws, any code that calls this method must either handle the errors—using a do-catch statement, try?, or try!. In single sample measurment method
-``` measureDistance()``` takes sample immediately after calling it. If You want make next measurment You need to remember that producer of ultrasonic sensor suggest to use over 60ms measurement cycle, in order to prevent trigger signal to the echo signal, so You need to wait 60ms before You call single measurment again.</br> </br>
+You can start **single sample measurment** by calling ``` measureDistance()``` method with no arguments. Because the ``` measureDistance()``` method propagates any errors it throws, any code that calls this method must either handle the errors—using a do-catch statement, try?, or try!. In single sample measurment method
+``` measureDistance()``` takes sample immediately after calling it. If You want make next measurment You need to remember that producer of ultrasonic sensor suggest to use over 60ms measurement cycle, in order to prevent trigger signal to the echo signal, so You need to wait 60ms before You call ``` measureDistance()``` again.</br> </br>
 More about: [Swift Error Handling](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/ErrorHandling.html)
 
 ```
@@ -95,7 +95,7 @@ do {
 }
 ```
 ### Multiple samples  distnace measurment:
-You can start **multiple sample measurment** which return average distance by calling method with optional argument ``` measureDistance(numberOfSamples: Int? = nil)``` </br>Depending on producer suggest to use over 60ms measurement cycle ``` measureDistance(numberOfSamples: Int? = nil)``` method takes first sample immediately after calling it but **every next sample is taken after 60ms.** </br>In below example as You expected time of 5 sample measurment will take around 240ms and return average distance.
+You can start **multiple sample measurment** which returns average distance by calling ``` measureDistance(numberOfSamples: Int? = nil)``` method with an optional argument ```numberOfSamples```  </br>Depending on producer suggest to use over 60ms measurement cycle ``` measureDistance(numberOfSamples: Int? = nil)``` method takes first sample immediately after calling it but **every next sample is taken after 60ms.** </br>In below example as You expected time of 5 sample measurment will take around 240ms and return average distance.
 ```
 do {
   let distance = try sensor.measureDistance(numberOfSamples: 5)
