@@ -38,7 +38,7 @@ There are only  four pins that you need to connect:
 </ul>
 
 
-[Voltage divider](https://learn.sparkfun.com/tutorials/voltage-dividers/all?print=1) - look for *Level Shifting section*. </br>
+[Voltage divider](https://learn.sparkfun.com/tutorials/voltage-dividers/all?print=1) - look for *Level Shifting* section. </br>
 [Logic level converter](https://www.sparkfun.com/products/12009) - simple to use and cheap level converter.
 
 For more details read datasheet of your sensor.
@@ -57,13 +57,13 @@ For more details read datasheet of your sensor.
 
 </p>
 
-## Instillation
+## Installation
 
 If your version of Swift supports the Swift Package Manager, You just need to add HCSR04 as a dependency in your Package.swift:
 
      .Package(url: "https://github.com/konifer44/HCSR04.swift.git", majorVersion: 1)
 
-[Swift Package Manager](https://swift.org/getting-started/#using-the-package-manager) - look for *Using the Package Manager section*. </br>
+[Swift Package Manager](https://swift.org/getting-started/#using-the-package-manager) - look for *Using the Package Manager* section. </br>
 
 
 ## Usage
