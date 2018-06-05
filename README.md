@@ -19,7 +19,7 @@ The project is based on [SwiftyGPIO](https://github.com/uraimo/SwiftyGPIO)
 
 ## Summary 
 
-This is library for HC-SR04 (US-015 and similar) ultrasonic ranging sensor which provide 3cm up to 500cm(depends on the used sensor) of non-contact measurement functionality with a ranging accuracy that can reach up to 3mm. Library allows to make a single or multiple sample measurment, detect timeout, hardware and measurment errors.
+This is library for HC-SR04 (US-015 and similar) ultrasonic ranging sensor which provide 3cm up to 500cm(depends on the used sensor) of non-contact measurement functionality with a ranging accuracy that can reach up to 3mm. Library allows to make a single or multiple sample measurement, detect timeout, hardware and measurement errors.
 
 ## Supported Boards
 Every board supported by [SwiftyGPIO](https://github.com/uraimo/SwiftyGPIO)
@@ -33,7 +33,7 @@ There are only  four pins that you need to connect:
 <ul>
 <li>VCC (Power) - 5v</li>
 <li> Trig (Trigger) - 3,3v signal from Raspberry is enough to trigger impulse</li>
-<li>Echo (Receive) - signal need to be converted from 5V to 3.3V via voltage divder or logic level converter !!!</li>
+<li>Echo (Receive) - signal need to be converted from 5V to 3.3V via voltage divider or logic level converter !!!</li>
 <li>GND (Ground)</li>
 </ul>
 
@@ -57,11 +57,14 @@ For more details read datasheet of your sensor.
 
 </p>
 
-## Instalation
+## Instillation
 
-Add the following dependency to your Package.swift
+If your version of Swift supports the Swift Package Manager, You just need to add HCSR04 as a dependency in your Package.swift:
 
      .Package(url: "https://github.com/konifer44/HCSR04.swift.git", majorVersion: 1)
+
+[Swift Package Manager](https://swift.org/getting-started/#using-the-package-manager) - look for *Using the Package Manager section*. </br>
+
 
 ## Usage
 First you need to import necessary libraries.
@@ -72,8 +75,8 @@ import SwiftyGPIO
 Next step is initialization. Sensor is initialized by creating instance of class HCSR04 and providing: 
 <ul>
 <li>Used Raspberry name.</li>
-<li>GPIO which the ECHO pin is conntected to.</li>
-<li>GPIO which the TRIGGER pin is conntected to.</li>
+<li>GPIO which the ECHO pin is connected to.</li>
+<li>GPIO which the TRIGGER pin is connected to.</li>
 <li>Maximum range of your sensor in cm - check datasheet typically is 400cm.</li>
 </ul>
 
@@ -81,9 +84,9 @@ Next step is initialization. Sensor is initialized by creating instance of class
 ``` 
 var sensor = HCSR04.init(usedRaspberry: .RaspberryPiPlusZero, echoConnectedPin: .P21, triggerConnectedPin: .P20, maximumSensorRange: 400)
 ```
-### Single sample  distnace measurment:
-You can start **single sample measurment** by calling ``` measureDistance()``` method with no arguments. Because the ``` measureDistance()``` method propagates any errors it throws, any code that calls this method must either handle the errors—using a do-catch statement, try?, or try!. In single sample measurment method
-``` measureDistance()``` takes sample immediately after calling it. If You want make next measurment You need to remember that producer of ultrasonic sensor suggest to use over 60ms measurement cycle, in order to prevent trigger signal to the echo signal, so You need to wait 60ms before You call ``` measureDistance()``` again.</br> </br>
+### Single sample  distance measurement:
+You can start **single sample measurement** by calling ``` measureDistance()``` method with no arguments. Because the ``` measureDistance()``` method propagates any errors it throws, any code that calls this method must either handle the errors—using a do-catch statement, try?, or try!. In single sample measurement method
+``` measureDistance()``` takes sample immediately after calling it. If You want make next measurement You need to remember that producer of ultrasonic sensor suggest to use over 60ms measurement cycle, in order to prevent trigger signal to the echo signal, so You need to wait 60ms before You call ``` measureDistance()``` again.</br> </br>
 More about: [Swift Error Handling](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/ErrorHandling.html)
 
 ```
@@ -94,8 +97,8 @@ do {
   print("Unexpected error: \(error)")   
 }
 ```
-### Multiple samples  distnace measurment:
-You can start **multiple sample measurment** which returns average distance by calling ``` measureDistance(numberOfSamples: Int? = nil)``` method with an optional argument ```numberOfSamples```  </br>Depending on producer suggest to use over 60ms measurement cycle ``` measureDistance(numberOfSamples: Int? = nil)``` method takes first sample immediately after calling it but **every next sample is taken after 60ms.** </br>In below example as You expected time of 5 sample measurment will take around 240ms and return average distance.
+### Multiple samples  distance measurement:
+You can start **multiple sample measurement** which returns average distance by calling ``` measureDistance(numberOfSamples: Int? = nil)``` method with an optional argument ```numberOfSamples```  </br>Depending on producer suggest to use over 60ms measurement cycle ``` measureDistance(numberOfSamples: Int? = nil)``` method takes first sample immediately after calling it but **every next sample is taken after 60ms.** </br>In below example as You expected time of 5 sample measurement will take around 240ms and return average distance.
 ```
 do {
   let distance = try sensor.measureDistance(numberOfSamples: 5)
@@ -107,15 +110,15 @@ do {
 
 ### User provided timeout and errors:
 
-In normal measurment, method ``` measureDistance()``` using default timeout value to throw errors in three cases
+In normal measurement, method ``` measureDistance()``` using default timeout value to throw errors in three cases
 <ul>
-<li>echoSignalError //Disconnected echo, trigger pin or too fast measurments.</li>
+<li>echoSignalError //Disconnected echo, trigger pin or too fast measurements.</li>
 <li>measuredDistanceIsOutSensorRange //Measured distance is out of sensor range.</li>
 <li>userTimeout //User timeout interrupt.</li>
 </ul>
 
 
-Default value of timeout depends on your maximum sensor range, it's twice longer than maximum echo signal because it should't interrupt distnace measuremnt. If You provide 400cm maximum sensor range the default timeout value will be around 45ms and after this time You can expect throwing an error. If You need change timeout value for some reasons You can provide it by calling method with optional argument ``` measureDistance(providedTimeout: Int? = nil)``` </br>For example 40ms provided timeout:
+Default value of timeout depends on your maximum sensor range, it's twice longer than maximum echo signal because it should't interrupt distance measurement. If You provide 400cm maximum sensor range the default timeout value will be around 45ms and after this time You can expect throwing an error. If You need change timeout value for some reasons You can provide it by calling method with optional argument ``` measureDistance(providedTimeout: Int? = nil)``` </br>For example 40ms provided timeout:
 
 ```
 do {
@@ -125,9 +128,9 @@ do {
   print("Error: \(error)")   
 }
 ```
-Remember that if You provide timeout shorter than maximum echo signal it will interrupt measurment and throw error.
+Remember that if You provide timeout shorter than maximum echo signal it will interrupt measurement and throw error.
 
-If You need handle error separately, You can access enum ```ErrorList``` insde of class ```HCSR04```
+If You need handle error separately, You can access enum ```ErrorList``` inside of class ```HCSR04```
 ```
 do {
   let distance = try sensor.measureDistance()
@@ -143,3 +146,4 @@ do {
 ```
 
 More about: [Swift Error Handling](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/ErrorHandling.html)
+
